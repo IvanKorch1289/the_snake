@@ -51,6 +51,7 @@ class GameObject:
 
     def __init__(self):
         self.position = SCREEN_CENTER
+        self.body_color = None
 
     def draw(self):
         """Метод для отрисовки объектов на игровом поле"""
