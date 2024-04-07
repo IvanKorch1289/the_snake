@@ -178,10 +178,6 @@ def handle_keys(game_object):
 
 
 def main():
-    """Основная функция - запуск игры."""
-    # Инициализация PyGame:
-    pygame.init()
-
     apple = Apple()
     snake = Snake()
     list_stones = []
