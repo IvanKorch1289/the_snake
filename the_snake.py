@@ -62,13 +62,6 @@ class GameObject:
         """Метод для отрисовки объектов на игровом поле"""
         self.draw_cell(self.position)
 
-
-class Apple(GameObject):
-    """Класс игрового объекта - Яблоко."""
-
-    def __init__(self, body_color, position):
-        super().__init__(body_color, position=self.randomize_position())
-
     @staticmethod
     def randomize_position():
         """Метод для определения случайной позиции объекта."""
@@ -77,15 +70,28 @@ class Apple(GameObject):
         return (coordinate_x, coordinate_y)
 
 
-class Stone(Apple):
+class Apple(GameObject):
+    """Класс игрового объекта - Яблоко."""
+
+    def __init__(self):
+        super().__init__(body_color=APPLE_COLOR,
+                         position=GameObject.randomize_position())
+
+
+class Stone(GameObject):
     """Класс игрового объекта - Камень."""
+
+    def __init__(self):
+        super().__init__(body_color=STONE_COLOR,
+                         position=GameObject.randomize_position())
 
 
 class Snake(GameObject):
     """Класс игрового объекта - Змейка."""
 
-    def __init__(self, body_color, position):
-        super().__init__(body_color, position)
+    def __init__(self):
+        super().__init__(body_color=SNAKE_COLOR,
+                         position=SCREEN_CENTER)
         self.length = 1
         self.positions = [self.position]
         self.last = None
@@ -164,14 +170,14 @@ def main():
     score = 0
     font_score = pygame.font.SysFont('Arial', 20, bold=True)
 
-    apple = Apple(APPLE_COLOR, Apple.randomize_position())
-    snake = Snake(SNAKE_COLOR, SCREEN_CENTER)
+    apple = Apple()
+    snake = Snake()
     list_stones = []
 
     for i in range(START_COUNT_STONES):
-        stone = Stone(STONE_COLOR, Stone.randomize_position())
+        stone = Stone()
         while stone.position == apple.position:
-            stone.position = Stone.randomize_position()
+            stone.position = GameObject.randomize_position()
         list_stones.append(stone)
 
     while True:
@@ -194,14 +200,14 @@ def main():
         if snake.get_head_position() == apple.position:
             snake.length += 1
             score += 1
-            apple.position = Apple.randomize_position()
+            apple.position = GameObject.randomize_position()
 
             ls_occupied_cells = snake.positions + list_stones_position
             while apple.position in ls_occupied_cells:
                 apple.randomize_position()
 
             if len(snake.positions) % 5 == 0:
-                stone = Stone(STONE_COLOR, Stone.randomize_position())
+                stone = Stone()
                 list_stones.append(stone)
                 speed += 2
 
