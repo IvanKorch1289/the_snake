@@ -46,9 +46,7 @@ clock = pygame.time.Clock()
 class GameObject:
     """Родительский класс игровых объектов."""
 
-    def __init__(self,
-                 body_color=BOARD_BACKGROUND_COLOR,
-                 position=SCREEN_CENTER):
+    def __init__(self, body_color, position):
         self.position = position
         self.body_color = body_color
 
@@ -67,8 +65,7 @@ class Apple(GameObject):
     """Класс игрового объекта - Яблоко."""
 
     def __init__(self, body_color, position):
-        super().__init__(body_color=body_color,
-                         position=self.randomize_position())
+        super().__init__(body_color, position)
 
     @staticmethod
     def randomize_position():
