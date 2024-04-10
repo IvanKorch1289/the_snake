@@ -207,6 +207,7 @@ def main():
                 apple.randomize_position()
 
             if len(snake.positions) % 5 == 0:
+                # Создать дополнительный объект Stone при увеличении змейки
                 stone = Stone()
                 list_stones.append(stone)
                 speed += 2
@@ -215,7 +216,9 @@ def main():
 
         if snake.get_head_position() in list_stones_position:
             snake.reset()
-            del list_stones[START_COUNT_STONES - 1]
+            if len(list_stones) > START_COUNT_STONES:
+                # Удалить все добавленные камни до первоначального значения
+                del list_stones[START_COUNT_STONES - 1]
             score = 0
             speed = START_SPEED
 
